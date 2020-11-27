@@ -1,5 +1,5 @@
 [package]
-name = "port_scanner"
+name = "rscan"
 version = "0.1.0"
 authors = ["Wafelack <wafelack@protonmail.com>"]
 edition = "2018"
