@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 use std::net::TcpStream;
 
 fn help() {
-    eprintln!("Usage : scanports $IP $FIRST_PORT-$LAST_PORT");
+    eprintln!("Usage : rscan $IP $FIRST_PORT-$LAST_PORT");
 }
 
 fn main() {
@@ -43,6 +43,10 @@ fn main() {
     let mut ports = BTreeMap::new();
     let mut open = 0usize;
     let mut closed = 0usize;
+
+    let center = end / 2;
+
+
 
     for port in start..end {
         if let Ok(_stream) = TcpStream::connect(format!("{}:{}", ip, port)) {
