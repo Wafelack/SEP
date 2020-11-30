@@ -3,19 +3,19 @@ use colored::*;
 use std::collections::BTreeMap;
 use std::net::TcpStream;
 
-fn parse_addresses(raw: &str) -> Vec<&str> {
-    let parts = raw.split(".").collect::<Vec<&str>>();
+fn parse_addresses(raw: &str) -> Vec<String> {
+    let parts = raw.split(".").map(|s| { s.to_string() }).collect::<Vec<String>>();
 
-    let ips: Vec<&str> = vec![];
+    let mut ips: Vec<String> = vec![];
 
-    let mut plages: [Vec<&str>;4] = [vec![];4];
+    let mut plages: [Vec<String>;4] = [vec![], vec![], vec![], vec![]];
 
     if parts.len() != 4 {
         return vec![];
     }
 
     for i in 0..4 {
-        if parts[i].split("/").collect::<Vec<&str>>().len() == 2 {
+        if parts[i].split("/").map(|s| { s.to_string() }).collect::<Vec<String>>().len() == 2 {
 
             let splited = parts[i].split("/").collect::<Vec<&str>>();
 
@@ -30,7 +30,7 @@ fn parse_addresses(raw: &str) -> Vec<&str> {
             };
 
             for j in first..second {
-                plages[i].push(&format!("{}", j));
+                plages[i].push(format!("{}", j));
             }
 
             /*
@@ -38,13 +38,33 @@ fn parse_addresses(raw: &str) -> Vec<&str> {
 
                 Put after the code to generate all the ips corresponding.
             */
-
         } else {
-            plages[i] = vec![parts[i]];
+            plages[i] = vec![parts[i].clone()];
         }
     }
 
-    vec![]
+    for first in &plages[0] {
+        for second in &plages[1] {
+            for third in &plages[2] {
+                for fourth in &plages[3] {
+                    ips.push(format!("{}.{}.{}.{}", first, second, third, fourth));
+                }
+            }
+        }
+    }
+
+    ips
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn parser() {
+        assert_eq!(parse_addresses("127.0.0/2.1/3"), vec!["127.0.0.1", "127.0.0.2", "127.0.1.1", "127.0.1.2"]);
+    }
+
 }
 
 
@@ -71,7 +91,7 @@ fn main() {
                     .get_matches();
 
 
-
+    /*
     let ip = &args[1].as_str();
     let (start, end): (i32, i32) = {
         let ports = &args[2].split('-').collect::<Vec<&str>>();
@@ -123,4 +143,4 @@ fn main() {
         println!("Port {}.....{}", port, status);
     }
     println!("\nTotal : {} ports : {} open, {} closed", open + closed, open, closed);
-}
+*/}
