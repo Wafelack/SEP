@@ -1,5 +1,11 @@
-# Port scanner
+# Airscan
 
-Simple port scanner written in Rust
+Yet another port scanner written in Rust
 
-![image](https://user-images.githubusercontent.com/61330081/100475073-7a728600-30e2-11eb-8ff9-1b20163749db.png)
+## Continuous Integration
+
+![Build & Test](https://github.com/Wafelack/airscan/workflows/Build%20&%20Test/badge.svg)
+
+## Install
+
+Run `cargo install airscan`
