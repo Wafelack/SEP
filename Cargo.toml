@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 colored = "2"
 clap = "2.33.3"
+time = "*"
