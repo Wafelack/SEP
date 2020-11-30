@@ -110,7 +110,7 @@ mod test {
 
 fn main() {
 
-    let matches = App::new("rscan")
+    let matches = App::new("airscan")
                     .version(env!("CARGO_PKG_VERSION"))
                     .author(env!("CARGO_PKG_AUTHORS"))
                     .about("Network scanner written in Rust")
