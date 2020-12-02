@@ -111,7 +111,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn add_rparser() {
+    fn addr_parser() {
         assert_eq!(
             parse_addresses("127.0.0/2.1/3"),
             vec!["127.0.0.1", "127.0.0.2", "127.0.1.1", "127.0.1.2"]
