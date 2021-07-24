@@ -1,0 +1,72 @@
+* Specification
+
+** Requests
+
+Request structure:
+#+BEGIN_SRC rust
+/* All numbers are big endian */
+struct RawRequest<'a> {
+  magic: u64,
+  request_type: u8,
+  size: u32,
+  body: &'a [u8], 
+}
+#+END_SRC 
+
+*** ~magic~
+
+The magic value is a 64 bits big endian unsigned integer used to determine wether the request is a valid SEP request or not.
+Its value is defined by this code:
+#+BEGIN_SRC rust
+3.1415926535897932f64
+    .to_be_bytes()
+    .iter()
+    .enumerate()
+    .fold(0, |acc, (idx, b)| acc | (*b as u64) << ((7 - idx) * 8))
+#+END_SRC
+
+If the received magic value is not the expected one, a « bad request » is returned.
+
+*** ~request_type~
+
+The request type is a 8 bits big endian unsigned integer and must be one of these:
++ ~read~ (~0~): Read a page.
+
+If the request type is not valid, a « bad request » is returned.
+
+*** ~size~
+
+The size is a 32 bits big endian unsigned integer representing the body size.
+
+*** ~body~
+
+The request body is an array of bytes that are read one at a time on the stream.
+If the body is not as long as specified by the ~size~, a « bad request » is returned.
+
+** Response
+
+Response structure:
+#+BEGIN_SRC rust
+/* All numbers are big endian */
+struct Response<'a> {
+  status: u8,
+  size: u32,
+  body: &'a [u8],
+}
+#+END_SRC
+
+*** ~status~
+
+The reponse status is one of the following:
++ 0: Success: The request has been successfully handled.
++ 1: Bad request: The submitted request is incorrectly made.
++ 2: Not found: The requested path is not found.
++ 3: Server error: The server failed to handle the request, but it's not a user mistake.
+
+*** ~size~
+
+The size is a 32 bits big endian unsigned integer representing the body size.
+
+*** ~body~
+
+The response body, ~size~ bytes long.
