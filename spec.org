@@ -70,3 +70,15 @@ The size is a 32 bits big endian unsigned integer representing the body size.
 *** ~body~
 
 The response body, ~size~ bytes long.
+
+** Data format
+
+This data format is a mix of several data formats, such as Org.
+
++ Top level header: `* <header>`
++ Second level header: `** <header>`
++ Third level header: `*** <header>`
++ Link: `$<link>$`
++ Link with caption: `$<link> <caption>$`
++ Item: `+ <item>`
++ Verbatim: `=<content>=`
