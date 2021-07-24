@@ -5,11 +5,11 @@
 Request structure:
 #+BEGIN_SRC rust
 /* All numbers are big endian */
-struct RawRequest<'a> {
+struct RawRequest {
   magic: u64,
   request_type: u8,
   size: u32,
-  body: &'a [u8], 
+  body: Vec<u8>, 
 }
 #+END_SRC 
 
@@ -48,10 +48,10 @@ If the body is not as long as specified by the ~size~, a « bad request » is re
 Response structure:
 #+BEGIN_SRC rust
 /* All numbers are big endian */
-struct Response<'a> {
+struct Response {
   status: u8,
   size: u32,
-  body: &'a [u8],
+  body: Vec<u8>,
 }
 #+END_SRC
 
@@ -75,10 +75,10 @@ The response body, ~size~ bytes long.
 
 This data format is a mix of several data formats, such as Org.
 
-+ Top level header: `* <header>`
-+ Second level header: `** <header>`
-+ Third level header: `*** <header>`
-+ Link: `$<link>$`
-+ Link with caption: `$<link> <caption>$`
-+ Item: `+ <item>`
-+ Verbatim: `=<content>=`
++ Top level header: ~* <header>~
++ Second level header: ~** <header>~
++ Third level header: ~*** <header>~
++ Link: ~$<link>$~
++ Link with caption: ~$<link> <caption>$~
++ Item: ~+ <item>~
++ Verbatim: ~=<content>=~

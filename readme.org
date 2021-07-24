@@ -1,0 +1,15 @@
+* SEP
+
+Simple Exchange Format
+A simple exchange format with no images, just plain information.
+
+** Index
+
++ [[Specification][./spec.org]]
++ [[Client][./sep_client]]
++ [[Server][./sep_server]]
+
+** License
+
+The specification is licensed under the [[GNU Free Documentation License][https://www.gnu.org/licenses/fdl-1.3.html]].
+The library, the client and the server code are licensed under the GNU General Public License version 3.0 or later.
